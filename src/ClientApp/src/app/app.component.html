@@ -1,0 +1,146 @@
+<div>
+  <div fxLayout="row" fxLayoutAlign="space-around center">
+    <h1>Applicants</h1>
+    <button (click)="add()" mat-raised-button color="primary">
+      Add Applicant
+    </button>
+  </div>
+
+  <mat-table #table [dataSource]="dataSource">
+    <!-- id Column -->
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm>
+        id
+      </mat-header-cell>
+      <mat-cell *matCellDef="let applicant" fxHide fxShow.gt-sm>
+        <p class="email text-truncate">
+          {{ applicant.id }}
+        </p>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+      <mat-cell *matCellDef="let applicant">
+        <p class="email text-truncate">
+          {{ applicant.name }}
+        </p>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="familyName">
+      <mat-header-cell *matHeaderCellDef> Family Name </mat-header-cell>
+      <mat-cell *matCellDef="let applicant">
+        {{ applicant.familyName }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="address">
+      <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm>
+        Address
+      </mat-header-cell>
+      <mat-cell *matCellDef="let applicant" fxHide fxShow.gt-sm>
+        {{ applicant.address }}
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="countryOfOrigin">
+      <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm>
+        Country
+      </mat-header-cell>
+      <mat-cell *matCellDef="let applicant" fxHide fxShow.gt-sm>
+        {{ applicant.countryOfOrigin }}
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="emailAddress">
+      <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm>
+        Email Address
+      </mat-header-cell>
+      <mat-cell *matCellDef="let applicant" fxHide fxShow.gt-sm>
+        {{ applicant.emailAddress }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="age">
+      <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm>
+        Age
+      </mat-header-cell>
+      <mat-cell *matCellDef="let applicant" fxHide fxShow.gt-sm>
+        {{ applicant.age }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="hired">
+      <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm>
+        Hired
+      </mat-header-cell>
+      <mat-cell *matCellDef="let applicant" fxHide fxShow.gt-sm>
+        <div *ngIf="applicant.hired">hired</div>
+        <div *ngIf="!applicant.hired">not hired</div>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="operation">
+      <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm
+        >operation</mat-header-cell
+      >
+      <mat-cell *matCellDef="let element" fxHide fxShow.gt-sm>
+        <button
+          mat-mini-fab
+          (click)="edit(element)"
+          style="margin-left: 10px"
+          mat-raised-button
+          color="accent"
+        >
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button
+          mat-mini-fab
+          (click)="delete(element)"
+          mat-raised-button
+          color="warn"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row
+      *matHeaderRowDef="displayedColumns; sticky: true"
+    ></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns" matRipple>
+    </mat-row>
+  </mat-table>
+  <ng-container *ngIf="dataSource.data.length === 0 && !loading">
+    <div
+      style="
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 30px;
+        flex-direction: column;
+      "
+    >
+      <img width="140px" height="140px" src="./assets/no-data.svg" />
+      <div style="font-size: 13px; color: #449fdb; margin-top: 7px">
+        No Data
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="loading">
+    <div
+      style="
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 30px;
+        flex-direction: column;
+      "
+    >
+      <img width="140px" height="140px" src="./assets/loading.svg" />
+      <div style="font-size: 13px; color: #449fdb; margin-top: 7px">
+        loading
+      </div>
+    </div>
+  </ng-container>
+</div>
+<ng-snotify></ng-snotify>
